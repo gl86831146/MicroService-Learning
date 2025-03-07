@@ -1,12 +1,6 @@
+spring:
+  profiles:
+    active: dev
+
 server:
   port: 8084
-
-spring:
-  application:
-    name: api-service
-  cloud:
-    nacos:
-      discovery:
-        server-addr: localhost:8848
-        username: nacos
-        password: nacos
