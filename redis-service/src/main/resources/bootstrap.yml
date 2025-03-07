@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: redis-service
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        username: nacos
+        password: nacos
+      config:
+        server-addr: 127.0.0.1
+        username: nacos
+        password: nacos
+        file-extension: yaml
+        group: gao
+        shared-configs:
+          - data-id: redis-service-${spring.profiles.active}.yaml
+            group: gao
+            refresh: true
+          - data-id: database-service-${spring.profiles.active}.yaml
+            group: gao
+            refresh: true
