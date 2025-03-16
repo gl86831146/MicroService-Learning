@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
+import top.gsc.aiservice.config.AlibabaCloudConfig;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
@@ -53,10 +53,10 @@ public class OcrController {
         }
     }
 
-    private Client createClient() throws Exception {
-        // 直接设置 AccessKeyId 和 AccessKeySecret
-        String accessKeyId = "LTAI5tF4z3tgQoWTbQFUBSux"; // 替换为你的 AccessKeyId
-        String accessKeySecret = "Ecd4xNqXTltQ5EOUHg58BjwG99Mmib"; // 替换为你的 AccessKeySecret
+    public Client createClient() throws Exception {
+        // 从 AlibabaCloudConfig 中获取 AccessKeyId 和 AccessKeySecret
+        String accessKeyId = AlibabaCloudConfig.getAccessKeyId();
+        String accessKeySecret = AlibabaCloudConfig.getAccessKeySecret();
 
         // 创建配置对象
         Config config = new Config()
