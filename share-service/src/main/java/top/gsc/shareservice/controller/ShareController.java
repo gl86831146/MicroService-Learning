@@ -27,7 +27,7 @@ public class ShareController {
         if (share == null) {
             return null;
         }
-        User user = userService.getUser(share.getUserId());
+        User user = userService.getUser(share.getUserId()).getData();
         if (user == null) {
             return null;
         }

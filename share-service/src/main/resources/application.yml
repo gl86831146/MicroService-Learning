@@ -1,24 +1,33 @@
-server:
-  port: 8082
-#  port: 0
-
 spring:
-  application:
-    name: content-service
+  profiles:
+    active: dev
   cloud:
-    nacos:
-      discovery:
-        server-addr: localhost:8848
-        username: nacos
-        password: nacos
-  datasource:
-    type: com.alibaba.druid.pool.DruidDataSource
-    druid:
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/content_center?useSSL=false
-      username: root
-      password: mysql
-      initial-size: 5
-      min-idle: 5
-      max-active: 20
-      max-wait: 30000
+    sentinel:
+      transport:
+        port: 8719
+        dashboard: localhost:8888
+      datasource:
+        #        流控规则配置
+        flow:
+          nacos:
+            server-addr: localhost:8848
+            username: nacos
+            password: nacos
+            group-id: sentinel
+            rule-type: flow
+            data-id: content-service-flow-rules
+            data-type: json
+        #         熔断规则配置
+        degrade:
+          nacos:
+            server-addr: localhost:8848
+            username: nacos
+            password: nacos
+            group-id: sentinel
+            rule-type: degrade
+            data-id: content-service-degrade-rules
+            data-type: json
+
+feign:
+  sentinel:
+   enabled: true
