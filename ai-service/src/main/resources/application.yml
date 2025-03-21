@@ -5,7 +5,3 @@ spring:
 server:
   port: 8084
 
-alibaba:
-  cloud:
-    access-key-id: LTAI5tF4z3tgQoWTbQFUBSux
-    access-key-secret: Ecd4xNqXTltQ5EOUHg58BjwG99Mmib
