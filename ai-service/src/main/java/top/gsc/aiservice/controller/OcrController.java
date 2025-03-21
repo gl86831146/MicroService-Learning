@@ -55,8 +55,8 @@ public class OcrController {
 
     public Client createClient() throws Exception {
         // 从 AlibabaCloudConfig 中获取 AccessKeyId 和 AccessKeySecret
-//        String accessKeyId = AlibabaCloudConfig.getAccessKeyId();
-//        String accessKeySecret = AlibabaCloudConfig.getAccessKeySecret();
+       String accessKeyId = AlibabaCloudConfig.getAccessKeyId();
+       String accessKeySecret = AlibabaCloudConfig.getAccessKeySecret();
 
         // 创建配置对象
         Config config = new Config()
