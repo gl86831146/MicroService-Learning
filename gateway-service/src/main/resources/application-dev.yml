@@ -1,0 +1,55 @@
+server:
+  port: 9090
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true  #启用服务发现机制
+      routes:
+        - id: user_route # 路由的唯一标识
+          order: 1 # 数字越小，优先级越高
+          uri: lb://user-service
+          predicates:
+            - Path=/user/**
+#            - Query=userId,123
+#            - Header=token, \d+
+#            - Before=2025-03-22T23:59:59+08:00
+#            - After=2025-03-21T23:59:59+08:00
+#            - Between=2025-03-21T08:00:00+08:00,2025-03-21T23:59:59+08:00
+#            - JDK=17
+          filters:
+            - StripPrefix=1
+#            - InvalidParameter=token,-1
+
+
+        - id: share_route # 路由的唯一标识
+          order: 1 # 数字越小，优先级越高
+          uri: lb://share-service
+          predicates:
+            - Path=/share/**
+#            - Method=GET
+
+          filters:
+            - StripPrefix=1
+
+        - id: weather_route # 路由的唯一标识
+          order: 1 # 数字越小，优先级越高
+          uri: lb://weather-service
+          predicates:
+              - Path=/weather/*
+              - TimeRange=08:00,12:00
+
+          filters:
+              - StripPrefix=1
+    sentinel:
+      filter:
+        enabled: true
+      transport:
+        port: 8719
+        dashboard: localhost:8888
+      scg:
+        fallback:
+          mode: response
+          response-status: 500
+          response-body: "{\"code\":500,\"msg\":\"网关流量超量\"}"
